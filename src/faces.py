@@ -13,7 +13,7 @@ def make_720p():
 make_720p()
 
 rec = cv2.face.LBPHFaceRecognizer_create()
-rec.read("./recognizer/trainingData.yml")
+rec.read("./src/recognizer/trainingData.yml")
 id = 0
 font = cv2.FONT_HERSHEY_SIMPLEX
 while True:
