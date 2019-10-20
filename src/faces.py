@@ -3,7 +3,7 @@ import sys
 import os
 import numpy as np
 
-face_cascade = cv2.CascadeClassifier("./cascades/data/haarcascade_frontalface_default.xml")
+face_cascade = cv2.CascadeClassifier("cascades/data/haarcascade_frontalface_default.xml")
 video_capture = cv2.VideoCapture(0)
 
 def make_720p():
@@ -13,7 +13,7 @@ def make_720p():
 make_720p()
 
 rec = cv2.face.LBPHFaceRecognizer_create()
-rec.read("./src/recognizer/trainingData.yml")
+rec.read("recognizer/trainingData.yml")
 id = 0
 font = cv2.FONT_HERSHEY_SIMPLEX
 while True:

@@ -1,11 +1,11 @@
 import cv2
 import sqlite3
 
-face_cascade = cv2.CascadeClassifier("./src/cascades/data/haarcascade_frontalface_default.xml")
+face_cascade = cv2.CascadeClassifier('cascades\data\haarcascade_frontalface_default.xml')
 video_capture = cv2.VideoCapture(0)
 
-def insertOrUpdate(Id, Name):
-    conn = sqlite3.connect("./src/DataFaces.db")
+def insertOrUpdate(Id, Name, ClassName, Age, Gender):
+    conn = sqlite3.connect("FaceRecognition.db")
     #cmd="SELECT * FROM People WHERE ID=" + str(Id)
     cursor = conn.execute("SELECT * FROM People WHERE ID=" + str(Id))
     isRecordExit = 0
@@ -14,7 +14,7 @@ def insertOrUpdate(Id, Name):
     if(isRecordExit == 1):
         cmd="UPDATE people SET Name=' "+str(name)+" ' WHERE ID="+str(Id)
     else:
-        cmd="INSERT INTO people(ID,Name) Values("+str(Id)+",' "+str(name)+" ' )"
+        cmd="INSERT INTO people(ID,Name,Class,Age,Gender) Values("+str(Id)+",' "+str(name)+" ' , ' "+str(className)+" ', "+str(age)+", ' "+str(gender)+" ')"
     conn.execute(cmd)
     conn.commit()
     conn.close()
@@ -22,8 +22,13 @@ def insertOrUpdate(Id, Name):
 
 id = input('Enter your id: ')
 name = input('Enter your name: ')
-insertOrUpdate(id, name)
+className = input('Enter your class: ')
+age = input('Enter your age: ')
+gender = input('Enter your gender: ')
+insertOrUpdate(id, name, className, age, gender)
 sampleNumber = 0
+
+print('\nYOUR FACES ARE RECORDING... ')
 
 while True:
     retval, frame = video_capture.read()
@@ -35,7 +40,7 @@ while True:
     for(x, y, w, h) in face:
         sampleNumber = sampleNumber+1
         roi_gray = gray[y:y+h, x:x+w]
-        cv2.imwrite("src/dataset/User."+str(id)+"."+str(sampleNumber)+".jpg", roi_gray)
+        cv2.imwrite("dataset/User."+str(id)+"."+str(sampleNumber)+".jpg", roi_gray)
 
         color = (50, 50, 200)
         stroke = 2
@@ -49,6 +54,8 @@ while True:
     if cv2.waitKey(1):
         if(sampleNumber > 29):
             break
+
+print('\nYOUR FACES HAS BEEN IN DATABASE... \n')
 
 video_capture.release()
 cv2.destroyAllWindows()

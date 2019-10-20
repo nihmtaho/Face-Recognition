@@ -4,9 +4,10 @@ import numpy as np
 from PIL import Image
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-path = './src/dataset'
+path = 'dataset'
 
 def getImageWithID(path):
+    print('\nTRAINING...')
     imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
     faces = []
     IDs = []
@@ -23,5 +24,7 @@ def getImageWithID(path):
 Ids, faces = getImageWithID(path)
 recognizer.train(faces, np.array(Ids))
 recognizer.save('recognizer/trainingData.yml')
+
+print('\nTRAINING SUCCESS... \n')
 
 cv2.destroyAllWindows()
