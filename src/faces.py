@@ -1,6 +1,5 @@
 import cv2
 import sys
-import os
 import numpy as np
 
 face_cascade = cv2.CascadeClassifier("cascades/data/haarcascade_frontalface_default.xml")
@@ -26,11 +25,12 @@ while True:
     for(x, y, w, h) in face:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (50, 50, 200), 2)
         id, conf = rec.predict(gray[y:y+h, x:x+w])
-        cv2.putText(frame, str(id), (x, y), font, 1.2, (0, 155, 255), lineType=cv2.LINE_AA)
+        cv2.putText(frame, "Id: " + str(id), (x, y+h+20), font, 0.6, (0, 155, 255), lineType=cv2.LINE_AA)
     
     cv2.imshow('Face Realtime', frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 video_capture.release()
 cv2.destroyAllWindows()

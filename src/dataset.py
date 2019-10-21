@@ -6,7 +6,6 @@ video_capture = cv2.VideoCapture(0)
 
 def insertOrUpdate(Id, Name, ClassName, Age, Gender):
     conn = sqlite3.connect("FaceRecognition.db")
-    #cmd="SELECT * FROM People WHERE ID=" + str(Id)
     cursor = conn.execute("SELECT * FROM People WHERE ID=" + str(Id))
     isRecordExit = 0
     for row in cursor:
@@ -52,7 +51,7 @@ while True:
     cv2.imshow('Face Realtime', frame)
 
     if cv2.waitKey(1):
-        if(sampleNumber > 29):
+        if(sampleNumber > 99):
             break
 
 print('\nYOUR FACES HAS BEEN IN DATABASE... \n')

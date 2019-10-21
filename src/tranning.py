@@ -7,7 +7,7 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 path = 'dataset'
 
 def getImageWithID(path):
-    print('\nTRAINING...')
+    print('\nSTART TRAINING...')
     imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
     faces = []
     IDs = []
@@ -25,6 +25,6 @@ Ids, faces = getImageWithID(path)
 recognizer.train(faces, np.array(Ids))
 recognizer.save('recognizer/trainingData.yml')
 
-print('\nTRAINING SUCCESS... \n')
+print('\nTRAINING COMPLETED... \n')
 
 cv2.destroyAllWindows()
