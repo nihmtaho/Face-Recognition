@@ -49,8 +49,6 @@ while True:
             cv2.putText(frame, "Age: " + str(profile[2]), (x, y+h+60), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
             cv2.putText(frame, "Class: " + str(profile[3]), (x, y+h+80), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
             cv2.putText(frame, "Gender: " + str(profile[4]), (x, y+h+100), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
-        else:
-            cv2.putText(frame, "Unkown", (x, y+h+20), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
     
     cv2.imshow('Face Realtime', frame)
 
