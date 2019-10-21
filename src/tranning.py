@@ -25,6 +25,6 @@ Ids, faces = getImageWithID(path)
 recognizer.train(faces, np.array(Ids))
 recognizer.save('recognizer/trainingData.yml')
 
-print('\nTRAINING COMPLETED... \n')
+print('\nTRAINING COMPLETED... \n')\
 
 cv2.destroyAllWindows()

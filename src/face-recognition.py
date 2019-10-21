@@ -41,7 +41,6 @@ while True:
         id, conf = recognizer.predict(gray[y:y+h, x:x+w])
         
         profile = getProfile(id)
-        #cv2.putText(frame, "Name: " + str(profile), (x, y+h+30), font, 0.6, (0, 155, 255), lineType=cv2.LINE_AA)
 
         if(profile != None):
             cv2.putText(frame, "Id: " + str(profile[0]), (x, y+h+20), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
