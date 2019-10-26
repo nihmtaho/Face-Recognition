@@ -1,4 +1,5 @@
 import cv2
+import os
 import sqlite3
 
 face_cascade = cv2.CascadeClassifier('cascades\data\haarcascade_frontalface_default.xml')
@@ -18,43 +19,41 @@ def insertOrUpdate(Id, Name, ClassName, Age, Gender):
     conn.commit()
     conn.close()
 
+if __name__ == '__main__':
+    id = input('Enter your id: ')
+    name = input('Enter your name: ')
+    className = input('Enter your class: ')
+    age = input('Enter your age: ')
+    gender = input('Enter your gender: ')
+    insertOrUpdate(id, name, className, age, gender)
+    sampleNumber = 0
 
-id = input('Enter your id: ')
-name = input('Enter your name: ')
-className = input('Enter your class: ')
-age = input('Enter your age: ')
-gender = input('Enter your gender: ')
-insertOrUpdate(id, name, className, age, gender)
-sampleNumber = 0
+    print('\nYOUR FACES ARE RECORDING... ')
 
-print('\nYOUR FACES ARE RECORDING... ')
+    while True:
+        retval, frame = video_capture.read()
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        face = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
+        
+        for(x, y, w, h) in face:
+            sampleNumber = sampleNumber+1
+            roi_gray = gray[y:y+h, x:x+w]
+            cv2.imwrite("dataset/User."+str(id)+"."+str(sampleNumber)+".jpg", roi_gray)
 
-while True:
-    retval, frame = video_capture.read()
+            color = (50, 50, 200)
+            stroke = 2
+            end_cord_x = x + w
+            end_cord_y = y + h
+            cv2.rectangle(frame, (x, y), (end_cord_x, end_cord_y), color, stroke)
+            cv2.waitKey(100)
+        
+        cv2.imshow('FACE RECORDER', frame)
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if cv2.waitKey(1):
+            if(sampleNumber > 199):
+                break
 
-    face = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
-    
-    for(x, y, w, h) in face:
-        sampleNumber = sampleNumber+1
-        roi_gray = gray[y:y+h, x:x+w]
-        cv2.imwrite("dataset/User."+str(id)+"."+str(sampleNumber)+".jpg", roi_gray)
+    print('\nYOUR FACES HAS BEEN IN DATABASE... \n')
 
-        color = (50, 50, 200)
-        stroke = 2
-        end_cord_x = x + w
-        end_cord_y = y + h
-        cv2.rectangle(frame, (x, y), (end_cord_x, end_cord_y), color, stroke)
-        cv2.waitKey(100)
-    
-    cv2.imshow('Face Realtime', frame)
-
-    if cv2.waitKey(1):
-        if(sampleNumber > 99):
-            break
-
-print('\nYOUR FACES HAS BEEN IN DATABASE... \n')
-
-video_capture.release()
-cv2.destroyAllWindows()
+    video_capture.release()
+    cv2.destroyAllWindows()
