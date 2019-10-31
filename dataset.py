@@ -1,6 +1,9 @@
 import cv2
 import os
 import sqlite3
+# import mysql.connector
+
+# connmySql = mysql.connector.connect(host="localhost", database="facedatainfomation")
 
 face_cascade = cv2.CascadeClassifier('cascades\data\haarcascade_frontalface_default.xml')
 video_capture = cv2.VideoCapture(0)
@@ -20,15 +23,16 @@ def insertOrUpdate(Id, Name, ClassName, Age, Gender):
     conn.close()
 
 if __name__ == '__main__':
-    id = input('Enter your id: ')
-    name = input('Enter your name: ')
-    className = input('Enter your class: ')
-    age = input('Enter your age: ')
-    gender = input('Enter your gender: ')
+    print("\n [INFO] Please enter information here... \n")
+    id = input('\tEnter your id >> ')
+    name = input('\tEnter your name >> ')
+    className = input('\tEnter your class >> ')
+    age = input('\tEnter your age >> ')
+    gender = input('\tEnter your gender >> ')
     insertOrUpdate(id, name, className, age, gender)
     sampleNumber = 0
 
-    print('\nYOUR FACES ARE RECORDING... ')
+    print('\n [INFO] Initializing face capture. Look the camera and wait ...')
 
     while True:
         retval, frame = video_capture.read()
@@ -50,10 +54,10 @@ if __name__ == '__main__':
         cv2.imshow('FACE RECORDER', frame)
 
         if cv2.waitKey(1):
-            if(sampleNumber > 199):
+            if(sampleNumber > 59):
                 break
 
-    print('\nYOUR FACES HAS BEEN IN DATABASE... \n')
+    print("\n [INFO] Exiting Program and cleanup stuff \n")
 
     video_capture.release()
     cv2.destroyAllWindows()

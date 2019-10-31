@@ -31,11 +31,11 @@ if __name__ == '__main__':
     make_720p()
 
     font = cv2.FONT_HERSHEY_SIMPLEX
-    fontscale = 0.6
+    fontscale = 0.5
     fontcolor = (0, 155, 255)
     lineType = cv2.LINE_AA
 
-    print("Opening camera...")
+    print("\n [INFO] Camera is opening...")
 
     while True:
         retval, frame = video_capture.read()
@@ -49,17 +49,20 @@ if __name__ == '__main__':
             profile = getProfile(id)
 
             if(profile != None):
-                cv2.putText(frame, "ID: " + str(profile[0]), (x, y+h+20), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
-                cv2.putText(frame, "NAME: " + str(profile[1]), (x, y+h+40), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
-                cv2.putText(frame, "AGE: " + str(profile[2]), (x, y+h+60), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
-                cv2.putText(frame, "CLASS: " + str(profile[3]), (x, y+h+80), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
-                cv2.putText(frame, "GENDER: " + str(profile[4]), (x, y+h+100), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                cv2.putText(frame, "ID: " + str(profile[0]), (x, y-30), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                cv2.putText(frame, "NAME: " + str(profile[1]), (x, y-10), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                # cv2.putText(frame, "AGE: " + str(profile[2]), (x, y+h+60), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                # cv2.putText(frame, "CLASS: " + str(profile[3]), (x, y+h+80), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                # cv2.putText(frame, "GENDER: " + str(profile[4]), (x, y+h+100), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                # conf = "  {0}%".format(round(100 - conf))
             else:
-                cv2.putText(frame, "Opps!!!", (x, y+h+100), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                cv2.putText(frame, "Opps!!!", (x, y-10), font, fontscale, fontcolor, lineType=cv2.LINE_AA)
+                # conf = "  {0}%".format(round(100 + conf))
         cv2.imshow('FACE RECORDER - Press Q to exit', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         
+    print("\n [INFO] Exiting Program and cleanup stuff \n")
     video_capture.release()
     cv2.destroyAllWindows()
