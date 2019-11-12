@@ -26,12 +26,9 @@ def make_720p():
     video_capture.set(3, 960)
     video_capture.set(4, 540)
 
-def known_people():
-    pass
-
 def menu():
     print("------------------ MENU -------------------\n")
-    print("1. Run camera. \n" + "2. Import infomation. \n" + "3. Traning" + "0. Exit program")
+    print("\t1. Run camera. \n" + "\t2. Import infomation. \n" + "\t3. Traning \n" + "\t0. Exit program")
     print("-------------------------------------------\n")
 
 def main():
@@ -39,6 +36,7 @@ def main():
     
 
 if __name__ == '__main__':
+    menu()
     make_720p()
 
     font = cv2.FONT_HERSHEY_SIMPLEX
