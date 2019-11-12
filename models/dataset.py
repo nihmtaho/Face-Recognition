@@ -1,6 +1,7 @@
 import cv2
 import os
 import sqlite3
+import models
 # import mysql.connector
 
 # connmySql = mysql.connector.connect(host="localhost", database="facedatainfomation")
@@ -22,6 +23,8 @@ def insertOrUpdate(Id, Name, ClassName, Age, Gender):
     conn.commit()
     conn.close()
 
+def abc():
+    print("hello...")
 
 if __name__ == '__main__':
     print("\n [INFO] Please enter information here... \n")

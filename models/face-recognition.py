@@ -36,7 +36,6 @@ def main():
     
 
 if __name__ == '__main__':
-    menu()
     make_720p()
 
     font = cv2.FONT_HERSHEY_SIMPLEX
