@@ -3,7 +3,7 @@
 ### Môi trường:
   * OpenCV 4.1.1
   * Windows 10 (OS Build 18362.418)
-  * Python 3.7 (64-bit)
+  * Python 3.7.4 (64-bit)
 ### Cơ sở dữ liệu:
   * Sqlite 3
 ## Module chính:
