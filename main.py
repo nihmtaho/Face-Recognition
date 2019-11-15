@@ -3,9 +3,12 @@ import facerecognition
 import tranning
 import os
 import time
+import sys
+
 
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def menu():
     print("\t=================== MENU ===================")
@@ -17,7 +20,7 @@ def menu():
         |      Q: Quit program.
         |               
         |      [Enter your choise] >> """)
-    
+
     if choise == "C" or choise == "c":
         cls()
         dataset.run_dataset()
@@ -30,17 +33,18 @@ def menu():
         cls()
         facerecognition.run_face()
         menu()
-        
+
     elif choise == "Q" or choise == "q":
         cls()
         print("\n[INFO] Exit now...")
         time.sleep(1)
-        SystemExit
+        sys.exit(0)
     else:
         cls()
-        print("\n\t[INFO] You must only select either C, T, F or Q.") 
+        print("\n\t[INFO] You must only select either C, T, F or Q.")
         print("\t[INFO] Please try again...\n")
         menu()
 
-#main program here
+
+# main program here
 menu()
