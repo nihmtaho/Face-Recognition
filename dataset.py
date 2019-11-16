@@ -1,38 +1,39 @@
 import cv2
 import os
 import sqlite3
+
+
 # import mysql.connector
 
-# connmySql = mysql.connector.connect(host="localhost", database="facedatainfomation")
+# connSql = mysql.connector.connect(host="localhost", database="facedatainfomation")
 
 def run_dataset():
     face_cascade = cv2.CascadeClassifier('cascades\data\haarcascade_frontalface_default.xml')
     video_capture = cv2.VideoCapture(0)
 
-    def insertOrUpdate(Id, Name, ClassName, Age, Gender):
+    def insert_or_update(ids, names, class_names, ages, genders):
         conn = sqlite3.connect("FaceRecognition.db")
-        cursor = conn.execute("SELECT * FROM People WHERE ID=" + str(Id))
-        isRecordExit = 0
+        cursor = conn.execute("SELECT * FROM People WHERE ID=" + str(ids))
+        is_record_exit = 0
         for row in cursor:
-            isRecordExit = 1
-        if(isRecordExit == 1):
-            cmd="UPDATE people SET Name=' "+str(Name)+" ' WHERE ID="+str(Id)
+            is_record_exit = 1
+        if is_record_exit == 1:
+            cmd = "UPDATE people SET Name=' " + str(names) + " ' WHERE ID=" + str(ids)
         else:
-            cmd="INSERT INTO people(ID,Name,Class,Age,Gender) Values("+str(Id)+",' "+str(Name)+" ' , ' "+str(ClassName)+" ', "+str(Age)+", ' "+str(Gender)+" ')"
+            cmd = "INSERT INTO people(ID,Name,Class,Age,Gender) Values(" + str(ids) + ",' " + str(
+                names) + " ' , ' " + str(class_names) + " ', " + str(ages) + ", ' " + str(genders) + " ')"
         conn.execute(cmd)
         conn.commit()
         conn.close()
 
-
-    
     print("\n [INFO] Please enter information here... \n")
-    id = input('\tEnter your id >> ')
+    idp = input('\tEnter your id >> ')
     name = input('\tEnter your name >> ')
-    className = input('\tEnter your class >> ')
+    class_name = input('\tEnter your class >> ')
     age = input('\tEnter your age >> ')
     gender = input('\tEnter your gender >> ')
-    insertOrUpdate(id, name, className, age, gender)
-    sampleNumber = 0
+    insert_or_update(idp, name, class_name, age, gender)
+    sample_number = 0
 
     print('\n [INFO] Initializing face capture. Look the camera and wait ...')
 
@@ -40,11 +41,11 @@ def run_dataset():
         retval, frame = video_capture.read()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         face = face_cascade.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=5)
-                
-        for(x, y, w, h) in face:
-            sampleNumber = sampleNumber+1
-            roi_gray = gray[y:y+h, x:x+w]
-            cv2.imwrite("images/User."+str(id)+"."+str(sampleNumber)+".jpg", roi_gray)
+
+        for (x, y, w, h) in face:
+            sample_number = sample_number + 1
+            roi_gray = gray[y:y + h, x:x + w]
+            cv2.imwrite("images/User." + str(id) + "." + str(sample_number) + ".jpg", roi_gray)
 
             color = (50, 50, 200)
             stroke = 2
@@ -52,11 +53,11 @@ def run_dataset():
             end_cord_y = y + h
             cv2.rectangle(frame, (x, y), (end_cord_x, end_cord_y), color, stroke)
             cv2.waitKey(100)
-                
+
             cv2.imshow('FACE RECORDER', frame)
 
             if cv2.waitKey(1):
-                if(sampleNumber > 59):
+                if sample_number > 59:
                     break
 
         print("\n [INFO] Exiting Program and cleanup stuff \n")

@@ -47,4 +47,6 @@ def menu():
 
 
 # main program here
-menu()
+# menu()
+if __name__ == "__main__":
+    menu()
