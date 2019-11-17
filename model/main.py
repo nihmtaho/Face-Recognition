@@ -1,4 +1,4 @@
-from module import dataset, facerecognition, training
+from model import dataset, training, facerecognition
 import os
 import time
 import sys
@@ -21,7 +21,7 @@ def menu():
 
     if choice == "C" or choice == "c":
         cls()
-        dataset.run_dataset()
+        dataset.run_data()
         menu()
     elif choice == "T" or choice == "t":
         cls()
@@ -45,6 +45,5 @@ def menu():
 
 
 # main program here
-# menu()
 if __name__ == "__main__":
     menu()
