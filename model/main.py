@@ -12,7 +12,7 @@ def menu():
     print("\t=================== MENU ===================")
     # time.sleep(1)
     choice = input("""
-        |      C: Create a new people.
+        |      C: Register face.
         |      T: Training data.
         |      F: Run Camera.
         |      Q: Quit program.
