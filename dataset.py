@@ -44,7 +44,7 @@ def run_data():
         for (x, y, w, h) in face:
             sample_number = sample_number + 1
             roi_gray = gray[y:y + h, x:x + w]
-            cv2.imwrite("datafile/User." + str(idp) + "." + str(sample_number) + ".jpg", roi_gray)
+            cv2.imwrite("dataset/User." + str(idp) + "." + str(sample_number) + ".jpg", roi_gray)
 
             color = (50, 50, 200)
             stroke = 2
@@ -55,10 +55,13 @@ def run_data():
 
             cv2.imshow('FACE RECORDER', frame)
 
-            if cv2.waitKey(1):
-                if sample_number > 59:
-                    break
+        if cv2.waitKey(1):
+            if sample_number > 59:
+                break
 
     print("\n [INFO] Exiting Program and cleanup stuff \n")
     video_capture.release()
     cv2.destroyAllWindows()
+
+
+run_data()

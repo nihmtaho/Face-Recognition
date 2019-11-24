@@ -9,7 +9,7 @@ def run_face():
 
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read('recognizer/trained_model.yml')
-    # path = 'datafile'
+    # path = 'dataset'
 
     # Get data from FaceRecognition.db
     def get_profile(ids):

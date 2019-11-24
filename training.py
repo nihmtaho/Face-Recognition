@@ -6,10 +6,11 @@ from PIL import Image
 
 def run_training():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
-    path = 'datafile'
+    path = 'dataset'
 
     def get_image_with_id(path_img):
-        image_paths = [os.path.join(path_img, f) for f in os.listdir(path_img)]
+        # image_paths = [os.path.join(path_img, f) for f in os.listdir(path_img)]
+        image_paths = [os.path.join(path_img, f) for f in os.listdir(path)]
         face_s = []
         id_s = []
         for imagePath in image_paths:
