@@ -9,7 +9,7 @@ import numpy as np
 from PIL import Image
 import sqlite3
 
-
+#Training images data
 def run_training():
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     path = 'dataset'
@@ -37,7 +37,7 @@ def run_training():
     print("\n [INFO] {0} faces trained. Exiting Program \n".format(len(np.unique(ids))))
     cv2.destroyAllWindows()
 
-
+#Input the informations and record the faces
 def run_data():
     face_cascade = cv2.CascadeClassifier("cascades/data/haarcascade_frontalface_default.xml")
     video_capture = cv2.VideoCapture(0)
@@ -88,14 +88,14 @@ def run_data():
             cv2.imshow('FACE RECORDER', frame)
 
         if cv2.waitKey(1):
-            if sample_number > 59:
+            if sample_number > 19:
                 break
 
     print("\n [INFO] Exiting Program and cleanup stuff \n")
     video_capture.release()
     cv2.destroyAllWindows()
 
-
+#Face Recognition
 def run_face():
     # Load face recognizer
     face_cascade = cv2.CascadeClassifier("cascades/data/haarcascade_frontalface_default.xml")
@@ -103,7 +103,7 @@ def run_face():
 
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read('recognizer/trained_model.yml')
-    # path = 'dataset'
+    path = 'dataset'
 
     # Get data from FaceRecognition.db
     def get_profile(ids):
@@ -116,6 +116,7 @@ def run_face():
         conn.close()
         return profiles
 
+    #Scale windows
     def make_720p():
         video_capture.set(3, 960)
         video_capture.set(4, 540)
@@ -138,16 +139,21 @@ def run_face():
             cv2.rectangle(frame, (x, y), (x + w, y + h), (50, 50, 200), 2)
             id_img, conf = recognizer.predict(gray[y:y + h, x:x + w])
 
-            profile = get_profile(id_img)
+            id_name = "404"
+            name = "UNKOWN PEOPLEPEOPLE"
 
+            profile = get_profile(id_img)
+                
             if profile is not None:
-                cv2.putText(frame, "ID: " + str(profile[0]), (x, y - 30), font, font_scale, font_color,
+                id_name = str(profile[0])
+                cv2.putText(frame, "ID: " + id_name, (x, y - 30), font, font_scale, font_color,
                             lineType=cv2.LINE_AA)
-                cv2.putText(frame, "NAME: " + str(profile[1]), (x, y - 10), font, font_scale, font_color,
+
+                name = str(profile[1])
+                cv2.putText(frame, "NAME: " + name, (x, y - 10), font, font_scale, font_color,
                             lineType=cv2.LINE_AA)
-            else:
-                cv2.putText(frame, "Empty!!!", (x, y - 10), font, font_scale, font_color, lineType=cv2.LINE_AA)
-                # conf = "  {0}%".format(round(100 + conf))
+
+                        
         cv2.imshow('FACE RECORDER - Press Q to exit', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -157,7 +163,7 @@ def run_face():
     video_capture.release()
     cv2.destroyAllWindows()
 
-
+#Clean Screen Console
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -191,6 +197,7 @@ def menu():
         print("\n[INFO] Exit now...")
         time.sleep(1)
         sys.exit(0)
+
     else:
         cls()
         print("\n\t[INFO] You must only select either C, T, F or Q.")
